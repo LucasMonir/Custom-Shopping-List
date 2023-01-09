@@ -1,4 +1,4 @@
-import 'package:custom_wish_list/widgets/card_widget.dart';
+import 'package:custom_wish_list/widgets/tile_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> list = List.generate(80, (index) => 'Item #$index');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +27,14 @@ class _HomePageState extends State<HomePage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
           ),
-          const CardWidget(title: 'aaaa', price: 1111),
+          ListView.builder(
+            cacheExtent: 25,
+            itemBuilder: (context, index) => TileWidget(
+              title: list[index],
+              index: index,
+              price: index.toString(),
+            ),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
