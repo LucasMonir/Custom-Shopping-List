@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'app_widget.dart';
 
 class CustomSwitcher extends StatelessWidget {
