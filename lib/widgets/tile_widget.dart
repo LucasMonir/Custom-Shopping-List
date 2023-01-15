@@ -4,8 +4,6 @@ class TileWidget extends StatelessWidget {
   final int index;
   final String title;
   final String price;
-  final Color oddColor = const Color.fromARGB(197, 172, 97, 252);
-  final Color evenColor = const Color.fromARGB(197, 116, 61, 218);
 
   const TileWidget(
       {super.key,
@@ -15,12 +13,12 @@ class TileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Material(
-        elevation: 8,
+    return Material(color: Colors.transparent,
+      elevation: 8,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: ListTile(
-          tileColor: index % 2 == 0 ? evenColor : oddColor,
+          tileColor: Colors.black,
           title: Text(title),
           trailing: Text(price),
           shape: RoundedRectangleBorder(
@@ -31,21 +29,4 @@ class TileWidget extends StatelessWidget {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(20.0),
-  //     child: Center(
-  //       heightFactor: 2,
-  //       child: SizedBox(
-  //         width: MediaQuery.of(context).size.width,
-  //         height: 50,
-  //         child: const Card(
-  //           color: Color.fromARGB(197, 172, 97, 252),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

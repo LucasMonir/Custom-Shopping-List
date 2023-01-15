@@ -8,33 +8,17 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: AppController.instance,
+    return MaterialApp(
       builder: ((context, child) {
         return MaterialApp(
-          color: Colors.black,
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
-          theme: ThemeData(
-            brightness: AppController.instance.isDarkTheme
-                ? Brightness.dark
-                : Brightness.light,
-          ),
+          theme: ThemeData(brightness: Brightness.dark),
           routes: {
             '/': (context) => HomePage(title: title),
           },
         );
       }),
     );
-  }
-}
-
-class AppController extends ChangeNotifier {
-  static AppController instance = AppController();
-
-  bool isDarkTheme = true;
-  changeTheme() {
-    isDarkTheme = !isDarkTheme;
-    notifyListeners();
   }
 }
