@@ -12,7 +12,7 @@ class AppbarWidget extends StatelessWidget {
       floating: false,
       expandedHeight: 70,
       elevation: 50,
-      backgroundColor: Colors.purple,
+      backgroundColor: const Color.fromARGB(201, 43, 70, 206),
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Text(

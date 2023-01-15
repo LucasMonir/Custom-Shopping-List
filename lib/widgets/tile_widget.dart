@@ -13,12 +13,16 @@ class TileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(color: Colors.transparent,
+    return Material(
+      color: Colors.transparent,
       elevation: 8,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        margin: const EdgeInsets.symmetric(
+          vertical: 5,
+          horizontal: 5,
+        ),
         child: ListTile(
-          tileColor: Colors.black,
+          tileColor: Colors.black45,
           title: Text(title),
           trailing: Text(price),
           shape: RoundedRectangleBorder(

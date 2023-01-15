@@ -16,15 +16,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.jpg'),
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/background.jpg'),
+          fit: BoxFit.cover,
         ),
-        child: CustomScrollView(
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        bottomNavigationBar: const BottomNavigationWidget(),
+        body: CustomScrollView(
           slivers: <Widget>[
             AppbarWidget(title: widget.title),
             SliverList(
@@ -40,7 +42,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }
