@@ -22,7 +22,7 @@ class TileWidget extends StatelessWidget {
           horizontal: 5,
         ),
         child: ListTile(
-          tileColor: Colors.black45,
+          tileColor: const Color.fromARGB(161, 0, 0, 0),
           title: Text(title),
           trailing: Text(price),
           shape: RoundedRectangleBorder(

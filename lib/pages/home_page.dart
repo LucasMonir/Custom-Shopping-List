@@ -4,18 +4,21 @@ import 'package:custom_wish_list/widgets/tile_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  final String title;
-  const HomePage({super.key, required this.title});
+  late List<String> list;
+  late String title;
+  late Function callback;
+
+  HomePage.callback({super.key, required this.callback});
+  HomePage({super.key, required this.title});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> list = List.generate(20, (index) => 'Item #$index');
-
   @override
   Widget build(BuildContext context) {
+    widget.list = List.generate(20, (index) => 'Item #$index');
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -31,9 +34,9 @@ class _HomePageState extends State<HomePage> {
             AppbarWidget(title: widget.title),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                childCount: list.length,
+                childCount: widget.list.length,
                 (context, index) => TileWidget(
-                  title: list[index],
+                  title: widget.list[index],
                   index: index,
                   price: index.toString(),
                 ),
