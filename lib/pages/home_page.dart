@@ -32,13 +32,15 @@ class _HomePageState extends State<HomePage> {
         body: CustomScrollView(
           slivers: <Widget>[
             AppbarWidget(title: widget.title),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                childCount: widget.list.length,
-                (context, index) => TileWidget(
-                  title: widget.list[index],
-                  index: index,
-                  price: index.toString(),
+            StatefulBuilder(
+              builder: (innerContext, innerSetState) => SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: widget.list.length,
+                  (context, index) => TileWidget(
+                    title: widget.list[index],
+                    index: index,
+                    price: index.toString(),
+                  ),
                 ),
               ),
             ),

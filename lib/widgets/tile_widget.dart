@@ -1,6 +1,7 @@
+
 import 'package:flutter/material.dart';
 
-class TileWidget extends StatelessWidget {
+class TileWidget extends StatefulWidget {
   final int index;
   final String title;
   final String price;
@@ -10,7 +11,11 @@ class TileWidget extends StatelessWidget {
       required this.title,
       required this.index,
       required this.price});
+  @override
+  State<TileWidget> createState() => _TileWidgetState();
+}
 
+class _TileWidgetState extends State<TileWidget> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -23,12 +28,14 @@ class TileWidget extends StatelessWidget {
         ),
         child: ListTile(
           tileColor: const Color.fromARGB(161, 0, 0, 0),
-          title: Text(title),
-          trailing: Text(price),
+          title: Text(widget.title),
+          trailing: Text(widget.price),
           shape: RoundedRectangleBorder(
             side: const BorderSide(width: 1.0),
             borderRadius: BorderRadius.circular(8),
-          ),
+          ),onTap: () {
+
+          },
         ),
       ),
     );
