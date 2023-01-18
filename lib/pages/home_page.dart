@@ -32,15 +32,21 @@ class _HomePageState extends State<HomePage> {
         body: CustomScrollView(
           slivers: <Widget>[
             AppbarWidget(title: widget.title),
-            StatefulBuilder(
-              builder: (innerContext, innerSetState) => SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  childCount: widget.list.length,
-                  (context, index) => TileWidget(
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                childCount: widget.list.length,
+                (context, index) => Dismissible(
+                  key: UniqueKey(),
+                  child: TileWidget(
                     title: widget.list[index],
                     index: index,
                     price: index.toString(),
                   ),
+                  onDismissed: (direction) {
+                    setState(() {
+                      widget.list.removeAt(index);
+                    });
+                  },
                 ),
               ),
             ),
