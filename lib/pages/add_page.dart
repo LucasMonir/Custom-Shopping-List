@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class AddPage extends StatefulWidget {
+  static Item item = Item();
   const AddPage({super.key});
-
   @override
   State<AddPage> createState() => _AddPageState();
+}
+
+class Item {
+  late double price;
+  late String name;
 }
 
 class _AddPageState extends State<AddPage> {
@@ -44,14 +49,16 @@ class _AddPageState extends State<AddPage> {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 2.5, bottom: 5),
-          child: const TextField(
-            onChanged: null,
-            style: TextStyle(
+          child: TextField(
+            onChanged: (value) {
+              AddPage.item?.name = value;
+            },
+            style: const TextStyle(
               color: Colors.white,
             ),
             keyboardType: TextInputType.emailAddress,
             cursorColor: Colors.white,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               label: Text('Item Name'),
               labelStyle: TextStyle(color: Colors.white),
               enabledBorder: OutlineInputBorder(
@@ -68,12 +75,13 @@ class _AddPageState extends State<AddPage> {
             top: 5,
             bottom: 20,
           ),
-          child: const TextField(
-            onChanged: null,
-            obscureText: true,
-            style: TextStyle(color: Colors.white),
+          child: TextField(
+            onChanged: (value) {
+              AddPage.item.price = double.tryParse(value)!;
+            },
+            style: const TextStyle(color: Colors.white),
             cursorColor: Colors.white,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               label: Text('Price'),
               labelStyle: TextStyle(color: Colors.white),
               enabledBorder: OutlineInputBorder(
@@ -108,7 +116,9 @@ class _AddPageState extends State<AddPage> {
                 Colors.white,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context, AddPage.item);
+            },
             child: const Text('Add Item!'),
           ),
         ),

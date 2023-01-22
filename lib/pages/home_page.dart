@@ -2,6 +2,8 @@ import 'package:custom_wish_list/widgets/appbar_widget.dart';
 import 'package:custom_wish_list/widgets/tile_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'add_page.dart';
+
 class HomePage extends StatefulWidget {
   final List<String> list = List.generate(11, (index) => '$index');
   final String title;
@@ -43,7 +45,13 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            onPressed: () {},
+            onPressed: () async {
+              Item item = await showDialog(
+                context: context,
+                builder: (BuildContext context) => const AddPage(),
+              );
+              widget.list.add(item.name);
+            },
             child: const Text('Add Item!'),
           )
         ],
