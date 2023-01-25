@@ -1,12 +1,12 @@
 import 'package:custom_wish_list/widgets/appbar_widget.dart';
 import 'package:custom_wish_list/widgets/tile_widget.dart';
 import 'package:flutter/material.dart';
-
+import '../classes/item.dart';
 import 'add_page.dart';
 
 class HomePage extends StatefulWidget {
-  final List<String> list = List.generate(11, (index) => '$index');
   final String title;
+  late List<Item> item;
 
   HomePage({super.key, required this.title});
 
@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    List<Item> list;
 
     return Container(
       decoration: const BoxDecoration(
@@ -50,7 +51,9 @@ class _HomePageState extends State<HomePage> {
                 context: context,
                 builder: (BuildContext context) => const AddPage(),
               );
-              widget.list.add(item.name);
+              setState(() {
+                widget.item.insert(0, item);
+              });
             },
             child: const Text('Add Item!'),
           )
@@ -62,19 +65,19 @@ class _HomePageState extends State<HomePage> {
           body: ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: widget.list.length,
+            itemCount: widget.item.length,
             itemBuilder: (context, index) => Dismissible(
               key: UniqueKey(),
               direction: DismissDirection.endToStart,
               onDismissed: (DismissDirection direction) {
                 setState(() {
-                  widget.list.removeAt(index);
+                  widget.item.removeAt(index);
                 });
               },
               background: Container(),
               secondaryBackground: deleteIcon,
               child: TileWidget(
-                title: widget.list[index],
+                title: widget.item[index].name,
                 index: index,
                 price: index.toString(),
               ),

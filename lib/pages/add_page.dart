@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
+import '../classes/item.dart';
 
 class AddPage extends StatefulWidget {
-  static Item item = Item();
+  static Item item = Item('', 0);
   const AddPage({super.key});
   @override
   State<AddPage> createState() => _AddPageState();
-}
-
-class Item {
-  late double price;
-  late String name;
 }
 
 class _AddPageState extends State<AddPage> {
@@ -51,7 +47,7 @@ class _AddPageState extends State<AddPage> {
           margin: const EdgeInsets.only(top: 2.5, bottom: 5),
           child: TextField(
             onChanged: (value) {
-              AddPage.item?.name = value;
+              AddPage.item.name = value;
             },
             style: const TextStyle(
               color: Colors.white,
