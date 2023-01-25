@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 
 class TileWidget extends StatefulWidget {
   final int index;
   final String title;
-  final String price;
+  final double price;
 
   const TileWidget(
       {super.key,
@@ -29,13 +28,12 @@ class _TileWidgetState extends State<TileWidget> {
         child: ListTile(
           tileColor: const Color.fromARGB(161, 0, 0, 0),
           title: Text(widget.title),
-          trailing: Text(widget.price),
+          trailing: Text(widget.price.toString()),
           shape: RoundedRectangleBorder(
             side: const BorderSide(width: 1.0),
             borderRadius: BorderRadius.circular(8),
-          ),onTap: () {
-
-          },
+          ),
+          onTap: () {},
         ),
       ),
     );
