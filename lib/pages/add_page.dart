@@ -52,7 +52,6 @@ class _AddPageState extends State<AddPage> {
             style: const TextStyle(
               color: Colors.white,
             ),
-            keyboardType: TextInputType.emailAddress,
             cursorColor: Colors.white,
             decoration: const InputDecoration(
               label: Text('Item Name'),
@@ -77,6 +76,7 @@ class _AddPageState extends State<AddPage> {
             },
             style: const TextStyle(color: Colors.white),
             cursorColor: Colors.white,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: const InputDecoration(
               label: Text('Price'),
               labelStyle: TextStyle(color: Colors.white),
@@ -87,7 +87,6 @@ class _AddPageState extends State<AddPage> {
                 borderSide: BorderSide(color: Colors.white),
               ),
             ),
-            keyboardType: TextInputType.number,
           ),
         ),
         Container(
@@ -114,7 +113,11 @@ class _AddPageState extends State<AddPage> {
               ),
             ),
             onPressed: () {
-              Navigator.pop(context, AddPage.item);
+              if (!(AddPage.item.name == '' || AddPage.item.price == 0)) {
+                Navigator.pop(context, AddPage.item);
+                AddPage.item.name = '';
+                AddPage.item.price = 0;
+              }
             },
             child: const Text('Add Item!'),
           ),
