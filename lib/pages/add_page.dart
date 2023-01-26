@@ -33,14 +33,14 @@ class _AddPageState extends State<AddPage> {
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: _loginForm(),
+            child: _itemForm(),
           ),
         ],
       ),
     );
   }
 
-  Widget _loginForm() {
+  Widget _itemForm() {
     return Column(
       children: [
         Container(
