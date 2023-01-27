@@ -1,4 +1,5 @@
 import 'package:custom_wish_list/classes/item.dart';
+import 'package:custom_wish_list/db/db_helper.dart';
 import 'package:custom_wish_list/pages/add_page.dart';
 import 'package:custom_wish_list/widgets/appbar_widget.dart';
 import 'package:custom_wish_list/widgets/tile_widget.dart';
@@ -15,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var items = [Item('1', 10.12)];
+  var list  = DbHelper().init();
 
   @override
   Widget build(BuildContext context) {

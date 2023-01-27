@@ -2,7 +2,7 @@ import 'package:custom_wish_list/classes/item.dart';
 import 'package:flutter/material.dart';
 
 class AddPage extends StatefulWidget {
-  static Item item = Item('', 0);
+  static Item item = Item();
   const AddPage({super.key});
   @override
   State<AddPage> createState() => _AddPageState();
