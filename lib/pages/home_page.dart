@@ -1,5 +1,5 @@
 import 'package:custom_wish_list/classes/item.dart';
-import 'package:custom_wish_list/db/db_helper.dart';
+import 'package:custom_wish_list/db_helper.dart';
 import 'package:custom_wish_list/pages/add_page.dart';
 import 'package:custom_wish_list/widgets/appbar_widget.dart';
 import 'package:custom_wish_list/widgets/tile_widget.dart';
@@ -16,11 +16,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var dbHelper = DbHelper();
+  var dbHelper = DbHelper.instance;
   var list = <Item>[];
 
   void _load() async {
-    list = await DbHelper().items();
+    list = await DbHelper.instance.items();
   }
 
   @override
