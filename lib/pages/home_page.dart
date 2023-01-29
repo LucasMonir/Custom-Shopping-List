@@ -16,12 +16,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var list  = DbHelper().init();
+  var dbHelper = DbHelper();
+  var list = <Item>[];
+
+  void _load() async {
+    list = await DbHelper().items();
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-
+    _load();
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -55,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (BuildContext context) => const AddPage(),
               );
               setState(() {
-                items.insert(0, item);
+                list.insert(0, item);
               });
             },
             child: const Text('Add Item!'),
@@ -68,21 +73,21 @@ class _HomePageState extends State<HomePage> {
           body: ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: items.length,
+            itemCount: list.length,
             itemBuilder: (context, index) => Dismissible(
               key: UniqueKey(),
               direction: DismissDirection.endToStart,
               onDismissed: (DismissDirection direction) {
                 setState(() {
-                  items.removeAt(index);
+                  list.removeAt(index);
                 });
               },
               background: Container(),
               secondaryBackground: deleteIcon,
               child: TileWidget(
-                title: items[index].name,
+                title: list[index].name,
                 index: index,
-                price: items[index].price,
+                price: list[index].price,
               ),
             ),
           ),
