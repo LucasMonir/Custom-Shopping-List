@@ -1,8 +1,8 @@
-import 'dart:io';
 import 'package:custom_wish_list/classes/item.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 class DbHelper {
   static const _databaseName = 'itemDb.db';
@@ -24,8 +24,8 @@ class DbHelper {
   }
 
   _initDatabase() async {
-    // Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join('lib\\db\\', _databaseName);
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, _databaseName);
     return await openDatabase(path,
         version: _databaseVersion, onCreate: _onCreate);
   }
@@ -40,27 +40,14 @@ class DbHelper {
     ''');
   }
 
-  Future<int> insert(Item item) async {
+  Future<int> insert(Map<String, dynamic> row) async {
     Database? db = await instance.database;
-
-    return await db!.insert(
-      table,
-      item.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    return await db!.insert(table, row);
   }
 
-  Future<List<Item>> items() async {
+  Future<List<Map<String, Object?>>?> items() async {
     Database? db = await instance.database;
-
-    final List<Map<String, dynamic>> list = await db!.query('item');
-    return List.generate(list.length, (i) {
-      return Item(
-        name: list[i]['name'],
-        price: list[i]['price'],
-        id: list[i]['id'],
-      );
-    });
+    return await db?.query(table);
   }
 
   Future<void> updateItem(Item item) async {

@@ -17,10 +17,29 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var dbHelper = DbHelper.instance;
-  var list = <Item>[];
+  var listData = <Map<String, dynamic>>[];
+  var itemList = <Item>[];
 
   void _load() async {
-    list = await DbHelper.instance.items();
+    listData = (await DbHelper.instance.items())!;
+    _makeItems();
+  }
+
+  void _insert(Item item) async {
+    Map<String, dynamic> row = {
+      DbHelper.columnName: item.name,
+      DbHelper.columnPrice: item.price,
+    };
+
+    final id = await dbHelper.insert(row);
+  }
+
+  void _makeItems() {
+    for (var map in listData) {
+      map.forEach((key, value) {
+        itemList.add(Item(name: key, price: value));
+      });
+    }
   }
 
   @override
@@ -60,7 +79,9 @@ class _HomePageState extends State<HomePage> {
                 builder: (BuildContext context) => const AddPage(),
               );
               setState(() {
-                list.insert(0, item);
+                itemList.insert(0, item);
+                _insert(item);
+                _load();
               });
             },
             child: const Text('Add Item!'),
@@ -73,21 +94,21 @@ class _HomePageState extends State<HomePage> {
           body: ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: list.length,
+            itemCount: itemList.length,
             itemBuilder: (context, index) => Dismissible(
               key: UniqueKey(),
               direction: DismissDirection.endToStart,
               onDismissed: (DismissDirection direction) {
                 setState(() {
-                  list.removeAt(index);
+                  itemList.removeAt(index);
                 });
               },
               background: Container(),
               secondaryBackground: deleteIcon,
               child: TileWidget(
-                title: list[index].name,
+                title: itemList[index].name,
                 index: index,
-                price: list[index].price,
+                price: itemList[index].price,
               ),
             ),
           ),
