@@ -1,9 +1,9 @@
 class Item {
-  late int id;
-  late double price;
-  late String name;
+  final int? id;
+  final double price;
+  final String name;
 
-  Item({name, price, id});
+  Item({this.id, required this.price, required this.name});
 
   Map<String, dynamic> toMap() {
     return {

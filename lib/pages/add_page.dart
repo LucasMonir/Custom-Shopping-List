@@ -1,8 +1,9 @@
 import 'package:custom_wish_list/classes/item.dart';
+import 'package:custom_wish_list/classes/item_dao.dart';
 import 'package:flutter/material.dart';
 
 class AddPage extends StatefulWidget {
-  static Item item = Item();
+  static ItemDAO item = ItemDAO();
   const AddPage({super.key});
   @override
   State<AddPage> createState() => _AddPageState();
