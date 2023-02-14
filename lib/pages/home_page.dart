@@ -36,9 +36,7 @@ class _HomePageState extends State<HomePage> {
 
   void _makeItems() {
     for (var map in listData) {
-      map.forEach((key, value) {
-        itemList.add(Item(name: key, price: value));
-      });
+      itemList.add(Item(id: map['_id'], name: map['name'], price: map['price']));
     }
   }
 
