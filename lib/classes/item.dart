@@ -1,5 +1,5 @@
 class Item {
-  final int? id;
+  int? id;
   final double price;
   final String name;
 

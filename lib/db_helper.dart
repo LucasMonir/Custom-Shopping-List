@@ -66,8 +66,17 @@ class DbHelper {
 
     await db?.delete(
       table,
-      where: 'id = ?',
+      where: '_id = ?',
       whereArgs: [item.id],
+    );
+  }
+
+  Future<void> deleteAll() async{
+    Database? db = await instance.database;
+
+    await db?.delete(
+      table,
+      where: '_id  >0 '
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:custom_wish_list/classes/item.dart';
+import 'package:custom_wish_list/classes/item_dao.dart';
 import 'package:custom_wish_list/db_helper.dart';
 import 'package:custom_wish_list/pages/add_page.dart';
 import 'package:custom_wish_list/widgets/appbar_widget.dart';
@@ -22,21 +23,32 @@ class _HomePageState extends State<HomePage> {
 
   void _load() async {
     listData = (await DbHelper.instance.items())!;
+
+    setState(() {
+      _makeItems();
+    });
+  }
+
+  void _additens(ItemDAO dao) async {
+    Item item = Item(price: dao.price!, name: dao.name!);
+    item.id  = await _insert(item);
+
     _makeItems();
   }
 
-  void _insert(Item item) async {
+  Future<int> _insert(Item item) async {
     Map<String, dynamic> row = {
       DbHelper.columnName: item.name,
       DbHelper.columnPrice: item.price,
     };
 
-    final id = await dbHelper.insert(row);
+    return await dbHelper.insert(row);
   }
 
   void _makeItems() {
     for (var map in listData) {
-      itemList.add(Item(id: map['_id'], name: map['name'], price: map['price']));
+      itemList
+          .add(Item(id: map['_id'], name: map['name'], price: map['price']));
     }
   }
 
@@ -72,15 +84,11 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             onPressed: () async {
-              Item item = await showDialog(
+              ItemDAO item = await showDialog(
                 context: context,
                 builder: (BuildContext context) => const AddPage(),
               );
-              setState(() {
-                itemList.insert(0, item);
-                _insert(item);
-                _load();
-              });
+              _additens(item);
             },
             child: const Text('Add Item!'),
           ),
